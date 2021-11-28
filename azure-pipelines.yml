@@ -21,6 +21,7 @@ steps:
   displayName: 'npm install and build'
 
 - script: |
+    npm i -D nyc
     nyc --reporter=cobertura --reporter=html \
     npm test -- --reporter mocha-junit-reporter --reporter-options mochaFile=./test-results.xml
   displayName: 'Build code coverage report'
