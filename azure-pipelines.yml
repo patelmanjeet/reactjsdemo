@@ -22,4 +22,11 @@ steps:
 
 - task: BuildQualityChecks@8
   inputs:
+    checkWarnings: true
+    warningFailOption: 'build'
+    checkCoverage: true
+    coverageFailOption: 'build'
+    coverageType: 'blocks'
     runTitle: 'RName'
+
+  
