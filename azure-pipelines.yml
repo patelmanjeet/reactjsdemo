@@ -14,9 +14,6 @@ variables:
   # Web app name
   webAppName: 'reactjs123'
 
-  # Environment name
-  environmentName: 'reactjs123'
-
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
@@ -49,7 +46,6 @@ stages:
   jobs:
   - deployment: Deploy
     displayName: Deploy
-    environment: $(environmentName)
     pool:
       vmImage: $(vmImageName)
     strategy:
