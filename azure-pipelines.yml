@@ -56,7 +56,7 @@ stages:
         deploy:
           steps:
           - task: AzureRmWebAppDeployment@4
-            displayName: 'Azure App Service Deploy: reactjs123'
+            displayName: 'Azure App Service Deploy: $(webAppName)'
             inputs:
               azureSubscription: $(azureSubscription)
               appType: webAppLinux
