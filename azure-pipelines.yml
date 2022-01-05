@@ -40,9 +40,27 @@ stages:
 
     - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
-
-    - task: codecoveragecomparerbt@1
+      
+- stage: Test Build
+  displayName: Test Build stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    
+    steps:
+    - task: NodeTool@0 
       inputs:
-        codecoveragetarget: '85'
-        codecoveragemeasurementmethod: 'Lines'
+        versionSpec: '14.x'
+        
+    - task: Npm@1
+      inputs:
+        command: 'install'
+    
+    - task: Npm@1
+      inputs:
+        command: 'custom'
+        customCommand: 'build'
+
 
