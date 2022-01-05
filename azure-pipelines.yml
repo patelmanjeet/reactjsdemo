@@ -26,6 +26,19 @@ variables:
   isPR: $[eq(variables['Build.Reason'], 'PullRequest')]
 
 stages:
+- stage: debug
+  jobs:
+    - job: Package
+      displayName: Package
+      pool:
+        vmImage: $(vmImageName)
+
+      steps:
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: 'env | sort'
+
 - stage: Package
   displayName: Package
   condition: ne(variables.isPR, 'true')
