@@ -20,11 +20,11 @@ variables:
   vmImageName: 'ubuntu-latest'
 
 stages:
-- stage: Build
-  displayName: Build stage
+- stage: Package
+  displayName: Package
   jobs:
-  - job: Build
-    displayName: Build
+  - job: Package
+    displayName: Package
     pool:
       vmImage: $(vmImageName)
 
@@ -50,17 +50,33 @@ stages:
       vmImage: $(vmImageName)
     
     steps:
-    - task: NodeTool@0 
+    - task: NodeTool@0       
+      displayName: Install NodeTool
       inputs:
         versionSpec: '14.x'
         
     - task: Npm@1
+      displayName: Run npm install
       inputs:
         command: 'install'
     
     - task: Npm@1
+      displayName: Run npm build
       inputs:
         command: 'custom'
         customCommand: 'run build'
+
+- stage: Deploy
+  displayName: Deploy
+  jobs:
+  - job: Deploy
+    displayName: Deploy 
+    pool:
+      vmImage: $(vmImageName)
+    
+    steps:
+    - script: echo "test"
+
+
 
 
