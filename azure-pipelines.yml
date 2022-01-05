@@ -25,7 +25,7 @@ stages:
 
 - stage: Package
   displayName: Package
-  condition: in(variables['Build.SourceBranchName'], 'master', 'dev'))
+  condition: in(variables['Build.SourceBranchName'], 'master', 'dev')
   jobs:
   - job: Package
     displayName: Package
@@ -73,7 +73,7 @@ stages:
 
 - stage: Deploy
   displayName: Deploy
-  condition: in(variables['Build.SourceBranchName'], 'master', 'dev'))
+  condition: in(variables['Build.SourceBranchName'], 'master', 'dev')
   jobs:
   - job: Deploy
     displayName: Deploy
