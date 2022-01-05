@@ -63,10 +63,10 @@ stages:
 
 - stage: Test_Build
   displayName: Test Build
+  condition: always()
   jobs:
   - job: Build
     displayName: Build
-    condition: always()
     pool:
       vmImage: $(vmImageName)
 
