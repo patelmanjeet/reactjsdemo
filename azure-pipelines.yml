@@ -13,7 +13,7 @@ pr:
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: '49eae106-d642-4b11-a7b2-ca6be1b770c1'
+  azureSubscription: 'xxx'
 
   # Web app name
   webAppName: 'reactjs123'
@@ -23,9 +23,13 @@ variables:
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
+  variables:
+    isPR: $[eq(variables['Build.Reason'], 'PullRequest')]
+
 stages:
 - stage: Package
   displayName: Package
+  condition: neq(variables.isPR, 'true'))
   jobs:
   - job: Package
     displayName: Package
@@ -72,6 +76,7 @@ stages:
 
 - stage: Deploy
   displayName: Deploy
+  condition: neq(variables.isPR, 'true'))
   jobs:
   - job: Deploy
     displayName: Deploy
