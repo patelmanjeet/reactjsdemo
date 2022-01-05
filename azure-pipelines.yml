@@ -29,7 +29,7 @@ stages:
 
 - stage: Package
   displayName: Package
-  condition: ne(variables.isPR, 'true')
+  condition: in(variables['Build.SourceBranchName'], 'master', 'dev'))
   jobs:
   - job: Package
     displayName: Package
@@ -77,7 +77,7 @@ stages:
 
 - stage: Deploy
   displayName: Deploy
-  condition: ne(variables.isPR, 'true')
+  condition: in(variables['Build.SourceBranchName'], 'master', 'dev'))
   jobs:
   - job: Deploy
     displayName: Deploy
