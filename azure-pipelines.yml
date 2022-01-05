@@ -5,6 +5,10 @@
 
 trigger:
 - master
+- dev
+
+pr:
+  - dev
 
 variables:
 
@@ -40,26 +44,26 @@ stages:
 
     - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
-      
+
 - stage: Test_Build
-  displayName: Test Build 
+  displayName: Test Build
   jobs:
   - job: Build
     displayName: Build
     pool:
       vmImage: $(vmImageName)
-    
+
     steps:
-    - task: NodeTool@0       
+    - task: NodeTool@0
       displayName: Install NodeTool
       inputs:
         versionSpec: '14.x'
-        
+
     - task: Npm@1
       displayName: Run npm install
       inputs:
         command: 'install'
-    
+
     - task: Npm@1
       displayName: Run npm build
       inputs:
@@ -70,10 +74,10 @@ stages:
   displayName: Deploy
   jobs:
   - job: Deploy
-    displayName: Deploy 
+    displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    
+
     steps:
     - script: echo "test"
 
