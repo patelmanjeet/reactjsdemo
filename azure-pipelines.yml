@@ -28,7 +28,7 @@ variables:
 stages:
 - stage: Package
   displayName: Package
-  condition: neq(variables.isPR, 'true'))
+  condition: ne(variables.isPR, 'true'))
   jobs:
   - job: Package
     displayName: Package
@@ -75,7 +75,7 @@ stages:
 
 - stage: Deploy
   displayName: Deploy
-  condition: neq(variables.isPR, 'true'))
+  condition: ne(variables.isPR, 'true'))
   jobs:
   - job: Deploy
     displayName: Deploy
