@@ -41,7 +41,7 @@ stages:
 
 - stage: Package
   displayName: Package
-  condition: ne(variables.isPR, true)
+  condition: ne(variables.isPR, 'true')
   jobs:
   - job: Package
     displayName: Package
@@ -66,6 +66,7 @@ stages:
   jobs:
   - job: Build
     displayName: Build
+    condition: and(succeededOrFailed(), ne(variables.isPR, 'true'))
     pool:
       vmImage: $(vmImageName)
 
@@ -88,7 +89,7 @@ stages:
 
 - stage: Deploy
   displayName: Deploy
-  condition: ne(variables.isPR, true)
+  condition: ne(variables.isPR, 'true')
   jobs:
   - job: Deploy
     displayName: Deploy
