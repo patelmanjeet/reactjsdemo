@@ -23,8 +23,7 @@ variables:
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
-  variables:
-    isPR: $[eq(variables['Build.Reason'], 'PullRequest')]
+  isPR: $[eq(variables['Build.Reason'], 'PullRequest')]
 
 stages:
 - stage: Package
