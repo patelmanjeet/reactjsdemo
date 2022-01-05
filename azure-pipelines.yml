@@ -41,7 +41,8 @@ stages:
     - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
 
-- task: codecoveragecomparerbt@1
-  inputs:
-    codecoveragetarget: '85'
-    codecoveragemeasurementmethod: 'Lines'
+    - task: codecoveragecomparerbt@1
+      inputs:
+        codecoveragetarget: '85'
+        codecoveragemeasurementmethod: 'Lines'
+
