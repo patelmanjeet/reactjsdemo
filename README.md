@@ -1,3 +1,6 @@
+[![Build Status](https://manjeet.visualstudio.com/cicddemo/_apis/build/status/reactjsdemo?branchName=master)](https://manjeet.visualstudio.com/cicddemo/_build/latest?definitionId=9&branchName=master)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
