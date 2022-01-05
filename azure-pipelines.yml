@@ -5,11 +5,15 @@
 
 trigger:
 - master
+- dev
+
+pr:
+  - dev
 
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: '49eae106-d642-4b11-a7b2-ca6be1b770c1'
+  azureSubscription: 'xxx'
 
   # Web app name
   webAppName: 'reactjs123'
@@ -19,9 +23,25 @@ variables:
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
+  isPR: $[eq(variables['Build.Reason'], 'PullRequest')]
+
 stages:
+- stage: debug
+  jobs:
+    - job: Package
+      displayName: Package
+      pool:
+        vmImage: $(vmImageName)
+
+      steps:
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: 'env | sort'
+
 - stage: Package
   displayName: Package
+  condition: ne(variables.isPR, 'true')
   jobs:
   - job: Package
     displayName: Package
@@ -40,26 +60,27 @@ stages:
 
     - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
-      
+
 - stage: Test_Build
-  displayName: Test Build 
+  displayName: Test Build
+  condition: always()
   jobs:
   - job: Build
     displayName: Build
     pool:
       vmImage: $(vmImageName)
-    
+
     steps:
-    - task: NodeTool@0       
+    - task: NodeTool@0
       displayName: Install NodeTool
       inputs:
         versionSpec: '14.x'
-        
+
     - task: Npm@1
       displayName: Run npm install
       inputs:
         command: 'install'
-    
+
     - task: Npm@1
       displayName: Run npm build
       inputs:
@@ -68,12 +89,13 @@ stages:
 
 - stage: Deploy
   displayName: Deploy
+  condition: ne(variables.isPR, 'true')
   jobs:
   - job: Deploy
-    displayName: Deploy 
+    displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    
+
     steps:
     - script: echo "test"
 
