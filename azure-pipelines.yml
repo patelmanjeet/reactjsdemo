@@ -11,9 +11,10 @@ pr:
   - dev
 
 variables:
-
-  # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: 'xxx'
+  
+  prodAzureSubscription: 'prrrrod'
+  nonProdAzureSubscription: 'nnnnpppprrrdd'
+ 
 
   # Web app name
   webAppName: 'reactjs123'
@@ -25,6 +26,13 @@ variables:
 
   isPR: $[eq(variables['Build.Reason'], 'PullRequest')]
 
+  # Azure Resource Manager connection created during pipeline creation
+  azureSubscription: 'xxx'
+  
+  ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
+    npmBuildName: 'prod'
+  ${{ else }}:
+    npmBuildName: 'dev'
 stages:
 
 - stage: Package
