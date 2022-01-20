@@ -11,21 +11,29 @@ pr:
   - dev
 
 variables:
+  - group: my-variable-group
 
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: 'xxx'
-
-  # Web app name
-  webAppName: 'reactjs123'
-
-  environmentName: 'azureappserver-nonprod'
-
+  - name: azureSubscription
+    value: 'xxx'
+  
+  - name: webAppName
+    value: 'reactjs123'
+  
+  - name: environmentName
+    value: 'azureappserver-nonprod'
+   
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  - name: vmImageName
+    value: 'ubuntu-latest'
+  
+  - name: isPR
+    value: $[eq(variables['Build.Reason'], 'PullRequest')]
 
-  isPR: $[eq(variables['Build.Reason'], 'PullRequest')]
+  
 
 stages:
+
 
 - stage: Package
   displayName: Package
@@ -37,6 +45,8 @@ stages:
       vmImage: $(vmImageName)
 
     steps:
+    - script: echo $(NONPROD_SUB) # uses macro syntax
+
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
